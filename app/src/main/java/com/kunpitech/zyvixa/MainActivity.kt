@@ -21,6 +21,11 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import coil.compose.AsyncImage
+import android.media.MediaMetadataRetriever
+import android.graphics.Bitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.foundation.Image
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -92,7 +97,8 @@ data class LiveWallpaper(
     val description: String,
     val source: String,
     val isRemote: Boolean,
-    val gradientColors: List<Color>
+    val gradientColors: List<Color>,
+    val imageUrl: String? = null
 )
 
 suspend fun downloadVideo(
@@ -199,12 +205,32 @@ suspend fun fetchRemoteCatalog(urlStr: String): List<LiveWallpaper>? = withConte
                 description = raw.description,
                 source = raw.videoUrl ?: raw.imageUrl ?: "default_video",
                 isRemote = raw.isRemote,
-                gradientColors = colorList
+                gradientColors = colorList,
+                imageUrl = raw.imageUrl
             )
         }
     } catch (e: Exception) {
         e.printStackTrace()
         null
+    }
+}
+
+@Composable
+fun rememberVideoThumbnail(context: Context, resId: Int): Bitmap? {
+    return remember(resId) {
+        if (resId == 0) return@remember null
+        val retriever = MediaMetadataRetriever()
+        try {
+            val afd = context.resources.openRawResourceFd(resId)
+            retriever.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+            afd.close()
+            retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        } finally {
+            retriever.release()
+        }
     }
 }
 
@@ -689,6 +715,40 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                                                 .background(Brush.verticalGradient(wp.gradientColors)),
                                             contentAlignment = Alignment.Center
                                         ) {
+                                            // 1. Render Remote Thumbnail
+                                            if (wp.isRemote && !wp.imageUrl.isNullOrEmpty()) {
+                                                AsyncImage(
+                                                    model = wp.imageUrl,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.fillMaxSize(),
+                                                    contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                                                )
+                                            }
+                                            
+                                            // 2. Render Local Thumbnail
+                                            if (!wp.isRemote) {
+                                                val localResId = remember(wp.id) {
+                                                    context.resources.getIdentifier(wp.id, "raw", context.packageName)
+                                                }
+                                                val localThumbnail = rememberVideoThumbnail(context, localResId)
+                                                if (localThumbnail != null) {
+                                                    Image(
+                                                        bitmap = localThumbnail.asImageBitmap(),
+                                                        contentDescription = null,
+                                                        modifier = Modifier.fillMaxSize(),
+                                                        contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                                                    )
+                                                }
+                                            }
+
+                                            // 3. Translucent Dark Mask
+                                            Box(
+                                                modifier = Modifier
+                                                    .fillMaxSize()
+                                                    .background(Color.Black.copy(alpha = 0.2f))
+                                            )
+
+                                            // 4. Action Icon or Downloader Progress
                                             if (isThisDownloading) {
                                                 CircularProgressIndicator(
                                                     progress = { downloadProgress / 100f },
@@ -700,8 +760,8 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                                                 Icon(
                                                     imageVector = Icons.Default.PlayArrow,
                                                     contentDescription = null,
-                                                    tint = Color.White.copy(alpha = 0.8f),
-                                                    modifier = Modifier.size(24.dp)
+                                                    tint = Color.White.copy(alpha = 0.9f),
+                                                    modifier = Modifier.size(28.dp)
                                                 )
                                             }
                                         }
