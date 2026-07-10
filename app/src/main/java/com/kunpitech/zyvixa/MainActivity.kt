@@ -710,7 +710,7 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                                         Box(
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .height(80.dp)
+                                                .aspectRatio(9f / 16f)
                                                 .clip(RoundedCornerShape(10.dp))
                                                 .background(Brush.verticalGradient(wp.gradientColors)),
                                             contentAlignment = Alignment.Center
