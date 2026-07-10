@@ -628,10 +628,10 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
             } else {
                 val localStarterList = remember {
                     listOf(
-                        LiveWallpaper("default_video", "BMW Red Eye", "Red JDM headlight glow", "default_video", false, listOf(Color(0xFFE91E63), Color(0xFF3F51B5))),
-                        LiveWallpaper("live_wallpaper_one", "M3 Midnight", "Night city drift highway", "live_wallpaper_one", false, listOf(Color(0xFF9C27B0), Color(0xFF2196F3))),
-                        LiveWallpaper("wallpaper_3", "BMW Glow Eye", "Dark aesthetic red headlights", "wallpaper_3", false, listOf(Color(0xFF673AB7), Color(0xFF009688))),
-                        LiveWallpaper("wallpaper_4", "Tokyo Drift", "Neon street sliding loop", "wallpaper_4", false, listOf(Color(0xFFE040FB), Color(0xFF00E5FF)))
+                        LiveWallpaper("default_video", "BMW Red Eye", "Red JDM headlight glow", "default_video", false, listOf(Color(0xFFE91E63), Color(0xFF3F51B5)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/default_video.png"),
+                        LiveWallpaper("live_wallpaper_one", "M3 Midnight", "Night city drift highway", "live_wallpaper_one", false, listOf(Color(0xFF9C27B0), Color(0xFF2196F3)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/live_wallpaper_one.png"),
+                        LiveWallpaper("wallpaper_3", "BMW Glow Eye", "Dark aesthetic red headlights", "wallpaper_3", false, listOf(Color(0xFF673AB7), Color(0xFF009688)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/wallpaper_3.png"),
+                        LiveWallpaper("wallpaper_4", "Tokyo Drift", "Neon street sliding loop", "wallpaper_4", false, listOf(Color(0xFFE040FB), Color(0xFF00E5FF)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/wallpaper_4.png")
                     )
                 }
 
