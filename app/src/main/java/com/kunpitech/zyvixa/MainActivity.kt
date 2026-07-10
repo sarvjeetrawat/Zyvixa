@@ -612,7 +612,7 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                 val wallpaperCatalog = remember { mutableStateListOf<LiveWallpaper>().apply { addAll(localStarterList) } }
 
                 LaunchedEffect(Unit) {
-                    val remoteList = fetchRemoteCatalog("https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/main/live-wallpaper/catalog.json")
+                    val remoteList = fetchRemoteCatalog("https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/catalog.json")
                     if (!remoteList.isNullOrEmpty()) {
                         wallpaperCatalog.clear()
                         wallpaperCatalog.addAll(localStarterList)
