@@ -86,5 +86,115 @@
             "#9C27B0",
             "#00E5FF"
         ]
+    },
+    {
+        "id": "video_9",
+        "title": "Live Wallpaper 9",
+        "description": "Dynamic loop 9",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_9.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_10",
+        "title": "Live Wallpaper 10",
+        "description": "Dynamic loop 10",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_10.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_11",
+        "title": "Live Wallpaper 11",
+        "description": "Dynamic loop 11",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_11.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_12",
+        "title": "Live Wallpaper 12",
+        "description": "Dynamic loop 12",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_12.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_13",
+        "title": "Live Wallpaper 13",
+        "description": "Dynamic loop 13",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_13.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_14",
+        "title": "Live Wallpaper 14",
+        "description": "Dynamic loop 14",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_14.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_15",
+        "title": "Live Wallpaper 15",
+        "description": "Dynamic loop 15",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_15.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_16",
+        "title": "Live Wallpaper 16",
+        "description": "Dynamic loop 16",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_16.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_17",
+        "title": "Live Wallpaper 17",
+        "description": "Dynamic loop 17",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_17.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
+    },
+    {
+        "id": "video_18",
+        "title": "Live Wallpaper 18",
+        "description": "Dynamic loop 18",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_18.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ]
     }
 ]
