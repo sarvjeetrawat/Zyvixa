@@ -715,43 +715,115 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                                                 .background(Brush.verticalGradient(wp.gradientColors)),
                                             contentAlignment = Alignment.Center
                                         ) {
-                                            // 1. Render Remote Thumbnail
-                                            if (wp.isRemote && !wp.imageUrl.isNullOrEmpty()) {
-                                                AsyncImage(
-                                                    model = wp.imageUrl,
-                                                    contentDescription = null,
-                                                    modifier = Modifier.fillMaxSize(),
-                                                    contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-                                                    onError = { err ->
-                                                        android.util.Log.e("CoilError", "Failed to load image from: ${wp.imageUrl}", err.result.throwable)
-                                                    }
-                                                )
-                                            }
-                                            
-                                            // 2. Render Local Thumbnail
-                                            if (!wp.isRemote) {
-                                                val localResId = remember(wp.id) {
-                                                    context.resources.getIdentifier(wp.id, "raw", context.packageName)
+                                            // 1. Render Video playing if selected (and cached/local)
+                                            if (isVideoSelected && isCached) {
+                                                val videoPath = if (wp.isRemote) {
+                                                    getCachedWallpaperFile(context, wp.id).absolutePath
+                                                } else {
+                                                    wp.id
                                                 }
-                                                val localThumbnail = rememberVideoThumbnail(context, localResId)
-                                                if (localThumbnail != null) {
-                                                    Image(
-                                                        bitmap = localThumbnail.asImageBitmap(),
+                                                
+                                                val miniUri = remember(videoPath) {
+                                                    if (videoPath.startsWith("/")) {
+                                                        Uri.fromFile(File(videoPath))
+                                                    } else {
+                                                        val resId = context.resources.getIdentifier(videoPath, "raw", context.packageName)
+                                                        if (resId != 0) {
+                                                            Uri.parse("android.resource://${context.packageName}/$resId")
+                                                        } else {
+                                                            val fallbackId = context.resources.getIdentifier("default_video", "raw", context.packageName)
+                                                            Uri.parse("android.resource://${context.packageName}/$fallbackId")
+                                                        }
+                                                    }
+                                                }
+                                                
+                                                key(miniUri) {
+                                                    var miniPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+                                                    DisposableEffect(Unit) {
+                                                        onDispose {
+                                                            miniPlayer?.release()
+                                                            miniPlayer = null
+                                                        }
+                                                    }
+                                                    AndroidView(
+                                                        modifier = Modifier.fillMaxSize(),
+                                                        factory = { ctx ->
+                                                            TextureView(ctx).apply {
+                                                                surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+                                                                    var activeSurface: Surface? = null
+                                                                    override fun onSurfaceTextureAvailable(surfaceTexture: SurfaceTexture, width: Int, height: Int) {
+                                                                        val surface = Surface(surfaceTexture)
+                                                                        activeSurface = surface
+                                                                        try {
+                                                                            miniPlayer?.release()
+                                                                            miniPlayer = MediaPlayer().apply {
+                                                                                setDataSource(ctx, miniUri)
+                                                                                setSurface(surface)
+                                                                                isLooping = true
+                                                                                setVolume(0f, 0f)
+                                                                                setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
+                                                                                setOnPreparedListener {
+                                                                                    start()
+                                                                                }
+                                                                                prepareAsync()
+                                                                            }
+                                                                        } catch (e: Exception) {
+                                                                            e.printStackTrace()
+                                                                        }
+                                                                    }
+                                                                    override fun onSurfaceTextureSizeChanged(s: SurfaceTexture, w: Int, h: Int) {}
+                                                                    override fun onSurfaceTextureDestroyed(s: SurfaceTexture): Boolean {
+                                                                        miniPlayer?.release()
+                                                                        miniPlayer = null
+                                                                        activeSurface?.release()
+                                                                        activeSurface = null
+                                                                        return true
+                                                                    }
+                                                                    override fun onSurfaceTextureUpdated(s: SurfaceTexture) {}
+                                                                }
+                                                            }
+                                                        }
+                                                    )
+                                                }
+                                            } else {
+                                                // 2. Render Remote Thumbnail
+                                                if (wp.isRemote && !wp.imageUrl.isNullOrEmpty()) {
+                                                    AsyncImage(
+                                                        model = wp.imageUrl,
                                                         contentDescription = null,
                                                         modifier = Modifier.fillMaxSize(),
-                                                        contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                                                        contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+                                                        onError = { err ->
+                                                            android.util.Log.e("CoilError", "Failed to load image from: ${wp.imageUrl}", err.result.throwable)
+                                                        }
                                                     )
+                                                }
+                                                
+                                                // 3. Render Local Thumbnail
+                                                if (!wp.isRemote) {
+                                                    val localResId = remember(wp.id) {
+                                                        context.resources.getIdentifier(wp.id, "raw", context.packageName)
+                                                    }
+                                                    val localThumbnail = rememberVideoThumbnail(context, localResId)
+                                                    if (localThumbnail != null) {
+                                                        Image(
+                                                            bitmap = localThumbnail.asImageBitmap(),
+                                                            contentDescription = null,
+                                                            modifier = Modifier.fillMaxSize(),
+                                                            contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                                                        )
+                                                    }
                                                 }
                                             }
 
-                                            // 3. Translucent Dark Mask
+                                            // 4. Translucent Dark Mask
                                             Box(
                                                 modifier = Modifier
                                                     .fillMaxSize()
                                                     .background(Color.Black.copy(alpha = 0.2f))
                                             )
 
-                                            // 4. Action Icon or Downloader Progress
+                                            // 5. Action Icon or Downloader Progress
                                             if (isThisDownloading) {
                                                 CircularProgressIndicator(
                                                     progress = { downloadProgress / 100f },
