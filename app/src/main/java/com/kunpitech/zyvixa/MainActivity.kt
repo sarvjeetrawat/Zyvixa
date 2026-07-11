@@ -221,6 +221,43 @@ suspend fun fetchRemoteCatalog(urlStr: String): List<LiveWallpaper>? = withConte
     }
 }
 
+suspend fun fetchStaticCatalog(urlStr: String): List<StaticWallpaper>? = withContext(Dispatchers.IO) {
+    try {
+        val url = URL(urlStr)
+        val connection = url.openConnection() as HttpURLConnection
+        connection.connectTimeout = 10000
+        connection.readTimeout = 10000
+        connection.connect()
+
+        if (connection.responseCode != HttpURLConnection.HTTP_OK) {
+            return@withContext null
+        }
+
+        val input = connection.inputStream
+        val json = input.bufferedReader().use { it.readText() }
+        
+        data class RawStaticWallpaper(
+            val id: String,
+            val name: String,
+            val url: String
+        )
+        
+        val type = object : TypeToken<List<RawStaticWallpaper>>() {}.type
+        val rawList: List<RawStaticWallpaper> = Gson().fromJson(json, type)
+        
+        rawList.map { raw ->
+            StaticWallpaper(
+                id = raw.id,
+                name = raw.name,
+                url = raw.url
+            )
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
+
 @Composable
 fun rememberVideoThumbnail(context: Context, resId: Int): Bitmap? {
     return remember(resId) {
@@ -474,9 +511,9 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
 
             // Tab Content Rendering
             if (activeTab == 0) {
-                val staticWallpapersList = remember {
+                val localStaticStarter = remember {
                     val pngIndices = setOf(1, 2, 3, 4, 9, 11, 13, 14, 15, 20, 25)
-                    val webpIndices = setOf<Int>() // Add indices here if you upload .webp files
+                    val webpIndices = setOf<Int>()
                     (1..30).map { idx ->
                         val ext = when {
                             pngIndices.contains(idx) -> "png"
@@ -488,6 +525,16 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                             name = "Wallpaper $idx",
                             url = "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/wallpaper/wallpaper_$idx.$ext"
                         )
+                    }
+                }
+
+                val staticWallpapersList = remember { mutableStateListOf<StaticWallpaper>().apply { addAll(localStaticStarter) } }
+
+                LaunchedEffect(Unit) {
+                    val remoteList = fetchStaticCatalog("https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/wallpaper/catalog.json?t=${System.currentTimeMillis()}")
+                    if (!remoteList.isNullOrEmpty()) {
+                        staticWallpapersList.clear()
+                        staticWallpapersList.addAll(remoteList)
                     }
                 }
 
