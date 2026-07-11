@@ -476,8 +476,13 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
             if (activeTab == 0) {
                 val staticWallpapersList = remember {
                     val pngIndices = setOf(1, 2, 3, 4, 9, 11, 13, 14, 15, 20, 25)
+                    val webpIndices = setOf<Int>() // Add indices here if you upload .webp files
                     (1..30).map { idx ->
-                        val ext = if (pngIndices.contains(idx)) "png" else "jpg"
+                        val ext = when {
+                            pngIndices.contains(idx) -> "png"
+                            webpIndices.contains(idx) -> "webp"
+                            else -> "jpg"
+                        }
                         StaticWallpaper(
                             id = "wallpaper_$idx",
                             name = "Wallpaper $idx",
