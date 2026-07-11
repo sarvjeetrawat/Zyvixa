@@ -1,14 +1,16 @@
 [
     {
-        "id": "image_1",
-        "title": "Static Wallpaper 1",
-        "description": "Beautiful background 1",
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/image_1.png",
+        "id": "video_1",
+        "title": "Live Wallpaper 1",
+        "description": "Dynamic loop 1",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_1.mp4",
         "isRemote": true,
         "gradientColors": [
-            "#E91E63",
-            "#3F51B5"
-        ]
+            "#00E5FF",
+            "#9C27B0"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_1.png",
+        "category": "Nature"
     },
     {
         "id": "video_2",
@@ -285,18 +287,5 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_24.png"
-    },
-    {
-        "id": "video_1",
-        "title": "Live Wallpaper 1",
-        "description": "Dynamic loop 1",
-        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_1.mp4",
-        "isRemote": true,
-        "gradientColors": [
-            "#00E5FF",
-            "#9C27B0"
-        ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_1.png",
-        "category": "Nature"
     }
 ]
