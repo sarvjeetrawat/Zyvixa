@@ -55,7 +55,7 @@ object WallpaperRepository {
                 
                 // Categorize dynamic live wallpapers based on index/id mapping
                 val cat = raw.category ?: when {
-                    raw.id in listOf("default_video", "live_wallpaper_one", "wallpaper_3", "wallpaper_4", "video_2", "video_3", "video_4", "video_9", "video_10", "video_21") -> "Cars"
+                    raw.id in listOf("default_video", "live_wallpaper_one", "wallpaper_3", "wallpaper_4", "video_2", "video_3", "video_4", "video_9", "video_10", "video_21") -> "Car"
                     raw.id in listOf("video_5", "video_7", "video_8", "video_12", "video_13", "video_19", "video_20", "video_24") -> "Nature"
                     else -> "Abstract"
                 }
@@ -106,12 +106,21 @@ object WallpaperRepository {
                 // Distribute static wallpapers into clean aesthetic categories
                 val idx = raw.id.substringAfterLast("_").toIntOrNull() ?: 1
                 val cat = raw.category ?: when {
-                    idx in 1..20 -> "Abstract"
-                    idx in 21..50 -> "Cars"
-                    idx in 51..90 -> "Nature"
-                    idx in 91..120 -> "Anime"
-                    idx in 121..140 -> "Aesthetic"
-                    else -> "Minimalist"
+                    idx == 1 -> "Minimalist"
+                    idx in 2..4 -> "Nature"
+                    idx in 5..30 -> "Spiritual"
+                    idx in 31..45 -> "Animal"
+                    idx in 46..60 -> "Anime"
+                    idx in 76..85 -> "Nature"
+                    idx in 86..102 -> "Cartoon"
+                    idx in 103..132 -> "Sport"
+                    idx in 133..148 -> "Abstract"
+                    idx in 149..149 -> "Car"
+                    idx in 150..155 -> "Minimalist"
+                    idx in 156..160 -> "Animal"
+                    idx in 161..180 -> "Nature"
+                    idx in 181..190 -> "Car"
+                    else -> "Abstract"
                 }
 
                 StaticWallpaper(

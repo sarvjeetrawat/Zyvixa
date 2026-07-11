@@ -166,7 +166,7 @@ fun DashboardScreen(
             // Tab Content Rendering
             if (activeTab == 0) {
                 // STATIC WALLPAPERS TAB
-                val staticCategories = listOf("All", "Cars", "Nature", "Anime", "Aesthetic", "Minimalist", "Abstract")
+                val staticCategories = listOf("All", "Abstract", "Animal", "Anime", "Car", "Cartoon", "Minimalist", "Nature", "Sport", "Spiritual")
                 
                 CategorySelector(
                     categories = staticCategories,
@@ -219,7 +219,7 @@ fun DashboardScreen(
                 }
             } else {
                 // LIVE WALLPAPERS TAB
-                val liveCategories = listOf("All", "Cars", "Nature", "Abstract")
+                val liveCategories = listOf("All", "Car", "Nature", "Abstract")
 
                 CategorySelector(
                     categories = liveCategories,

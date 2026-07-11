@@ -76,10 +76,10 @@ class WallpaperViewModel(context: Context) : ViewModel() {
     private fun loadStarters() {
         // Live Wallpaper starters
         val liveStarters = listOf(
-            LiveWallpaper("default_video", "BMW Red Eye", "Red JDM headlight glow", "default_video", false, listOf(androidx.compose.ui.graphics.Color(0xFFE91E63), androidx.compose.ui.graphics.Color(0xFF3F51B5)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/default_video.png", "Cars"),
-            LiveWallpaper("live_wallpaper_one", "M3 Midnight", "Night city drift highway", "live_wallpaper_one", false, listOf(androidx.compose.ui.graphics.Color(0xFF9C27B0), androidx.compose.ui.graphics.Color(0xFF2196F3)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/live_wallpaper_one.png", "Cars"),
-            LiveWallpaper("wallpaper_3", "BMW Glow Eye", "Dark aesthetic red headlights", "wallpaper_3", false, listOf(androidx.compose.ui.graphics.Color(0xFF673AB7), androidx.compose.ui.graphics.Color(0xFF009688)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/wallpaper_3.png", "Cars"),
-            LiveWallpaper("wallpaper_4", "Tokyo Drift", "Neon street sliding loop", "wallpaper_4", false, listOf(androidx.compose.ui.graphics.Color(0xFFE040FB), androidx.compose.ui.graphics.Color(0xFF00E5FF)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/wallpaper_4.png", "Cars")
+            LiveWallpaper("default_video", "BMW Red Eye", "Red JDM headlight glow", "default_video", false, listOf(androidx.compose.ui.graphics.Color(0xFFE91E63), androidx.compose.ui.graphics.Color(0xFF3F51B5)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/default_video.png", "Car"),
+            LiveWallpaper("live_wallpaper_one", "M3 Midnight", "Night city drift highway", "live_wallpaper_one", false, listOf(androidx.compose.ui.graphics.Color(0xFF9C27B0), androidx.compose.ui.graphics.Color(0xFF2196F3)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/live_wallpaper_one.png", "Car"),
+            LiveWallpaper("wallpaper_3", "BMW Glow Eye", "Dark aesthetic red headlights", "wallpaper_3", false, listOf(androidx.compose.ui.graphics.Color(0xFF673AB7), androidx.compose.ui.graphics.Color(0xFF009688)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/wallpaper_3.png", "Car"),
+            LiveWallpaper("wallpaper_4", "Tokyo Drift", "Neon street sliding loop", "wallpaper_4", false, listOf(androidx.compose.ui.graphics.Color(0xFFE040FB), androidx.compose.ui.graphics.Color(0xFF00E5FF)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/wallpaper_4.png", "Car")
         )
         liveWallpaperCatalog.addAll(liveStarters)
 
@@ -88,9 +88,9 @@ class WallpaperViewModel(context: Context) : ViewModel() {
         val staticStarters = (1..30).map { idx ->
             val ext = if (pngIndices.contains(idx)) "png" else "jpg"
             val cat = when {
-                idx in 1..20 -> "Abstract"
-                idx in 21..30 -> "Cars"
-                else -> "All"
+                idx == 1 -> "Minimalist"
+                idx in 2..4 -> "Nature"
+                else -> "Spiritual"
             }
             StaticWallpaper(
                 id = "wallpaper_$idx",
