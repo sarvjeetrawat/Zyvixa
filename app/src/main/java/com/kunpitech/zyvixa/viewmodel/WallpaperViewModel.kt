@@ -83,12 +83,11 @@ class WallpaperViewModel(context: Context) : ViewModel() {
         )
         liveWallpaperCatalog.addAll(liveStarters)
 
-        // Static Wallpaper starters (1..30)
+        // Static Wallpaper starters (2..30)
         val pngIndices = setOf(1, 2, 3, 4, 9, 11, 13, 14, 15, 20, 25)
-        val staticStarters = (1..30).map { idx ->
+        val staticStarters = (2..30).map { idx ->
             val ext = if (pngIndices.contains(idx)) "png" else "jpg"
             val cat = when {
-                idx == 1 -> "Minimalist"
                 idx in 2..4 -> "Nature"
                 else -> "Spiritual"
             }

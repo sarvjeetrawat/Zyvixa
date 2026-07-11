@@ -1,11 +1,5 @@
 [
     {
-        "id": "wallpaper_1",
-        "name": "Wallpaper 1",
-        "url": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/wallpaper/wallpaper_1.png",
-        "category": "Minimalist"
-    },
-    {
         "id": "wallpaper_2",
         "name": "Wallpaper 2",
         "url": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/wallpaper/wallpaper_2.png",
