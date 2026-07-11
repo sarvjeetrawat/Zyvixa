@@ -34,8 +34,8 @@ fun LiveSimulatedPreview(
         val parsedUri = remember(videoUriStr) {
             val uriStr = videoUriStr
             if (uriStr.isNullOrEmpty() || uriStr == "default_video") {
-                Uri.parse("android.resource://${context.packageName}/${R.raw.default_video}")
-            } else if (uriStr.startsWith("content://") || uriStr.startsWith("file://") || uriStr.startsWith("android.resource://")) {
+                Uri.parse("https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_1.mp4")
+            } else if (uriStr.startsWith("http://") || uriStr.startsWith("https://") || uriStr.startsWith("content://") || uriStr.startsWith("file://") || uriStr.startsWith("android.resource://")) {
                 Uri.parse(uriStr)
             } else if (uriStr.startsWith("/")) {
                 Uri.fromFile(File(uriStr))
@@ -44,7 +44,7 @@ fun LiveSimulatedPreview(
                 if (resId != 0) {
                     Uri.parse("android.resource://${context.packageName}/$resId")
                 } else {
-                    Uri.parse("android.resource://${context.packageName}/${R.raw.default_video}")
+                    Uri.parse("https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_1.mp4")
                 }
             }
         }

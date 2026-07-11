@@ -253,7 +253,12 @@ fun DashboardScreen(
                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             rowItems.forEach { wp ->
-                                val isSelected = selectedType == "Video" && videoUriStr == wp.source
+                                val isSelected = selectedType == "Video" && (
+                                    videoUriStr == wp.source ||
+                                    videoUriStr == wp.id ||
+                                    videoUriStr.endsWith("${wp.id}.mp4") ||
+                                    (wp.id == "default_video" && videoUriStr == "default_video")
+                                )
                                 val isDownloadingThis = activeDownloadId == wp.id
 
                                 LiveWallpaperItem(
