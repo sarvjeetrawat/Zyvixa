@@ -137,7 +137,7 @@ fun LiveWallpaperItem(
                 }
 
                 SubcomposeAsyncImage(
-                    model = "$coverUrl?t=${System.currentTimeMillis()}",
+                    model = coverUrl,
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop
