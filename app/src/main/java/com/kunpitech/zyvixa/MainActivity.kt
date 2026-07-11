@@ -101,6 +101,12 @@ data class LiveWallpaper(
     val imageUrl: String? = null
 )
 
+data class StaticWallpaper(
+    val id: String,
+    val name: String,
+    val url: String
+)
+
 suspend fun downloadVideo(
     context: Context,
     id: String,
@@ -317,18 +323,19 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
     val prefs = remember { context.getSharedPreferences("zyvixa_settings", Context.MODE_PRIVATE) }
 
     // Read settings states
-    var selectedType by remember { mutableStateOf(prefs.getString("wp_type", "Plexus") ?: "Plexus") }
+    var selectedType by remember {
+        val saved = prefs.getString("wp_type", "Static") ?: "Static"
+        val migrated = if (saved == "Plexus" || saved == "Matrix" || saved == "Aura Flow" || saved == "Static") "Static" else "Video"
+        mutableStateOf(migrated)
+    }
     var selectedTheme by remember { mutableStateOf(prefs.getString("wp_theme", "Ocean Breeze") ?: "Ocean Breeze") }
     var animSpeed by remember { mutableStateOf(prefs.getFloat("wp_speed", 1.0f)) }
     var touchEnabled by remember { mutableStateOf(prefs.getBoolean("wp_touch", true)) }
     var videoUriStr by remember { mutableStateOf(prefs.getString("wp_video_uri", "default_video") ?: "default_video") }
     var videoLoop by remember { mutableStateOf(prefs.getBoolean("wp_video_loop", true)) }
 
-    // Tab state: 0 for Generative Art (Plexus, Matrix, Aura Flow), 1 for Cinema Loops (Videos)
+    // Tab state: 0 for Wallpaper (Static), 1 for Live Wallpaper (Videos)
     var activeTab by remember { mutableStateOf(if (selectedType == "Video") 1 else 0) }
-    
-    // Remember the last selected generative type to restore when switching back
-    var lastGenerativeType by remember { mutableStateOf(if (selectedType != "Video") selectedType else "Plexus") }
 
     var activeDownloadId by remember { mutableStateOf<String?>(null) }
     var downloadProgress by remember { mutableStateOf(0) }
@@ -350,7 +357,7 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
     // Synchronize tab and selectedType
     LaunchedEffect(activeTab) {
         if (activeTab == 0) {
-            selectedType = lastGenerativeType
+            selectedType = "Static"
         } else {
             selectedType = "Video"
         }
@@ -372,8 +379,11 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                 "wallpaper_10" -> "Cosmic Leaves"
                 else -> name.replace("_", " ").replaceFirstChar { it.uppercase() }
             }
+        } else if (selectedType == "Static") {
+            val name = videoUriStr.substringAfterLast("/").substringBeforeLast(".")
+            name.replace("wallpaper_", "Wallpaper ").replaceFirstChar { it.uppercase() }
         } else {
-            "Interactive $selectedType"
+            selectedType
         }
     }
 
@@ -432,7 +442,7 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                listOf("Interactive Art", "Cinema Loops").forEachIndexed { index, tabTitle ->
+                 listOf("Wallpaper", "Live Wallpaper").forEachIndexed { index, tabTitle ->
                     val isTabSelected = activeTab == index
                     val tabBg by animateColorAsState(if (isTabSelected) Color(0xFF1E1E30) else Color.Transparent)
                     val tabTextCol by animateColorAsState(if (isTabSelected) Color(0xFF00E5FF) else Color.Gray)
@@ -443,7 +453,10 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                             .fillMaxHeight()
                             .clip(RoundedCornerShape(24.dp))
                             .background(tabBg)
-                            .clickable { activeTab = index }
+                            .clickable { 
+                                activeTab = index
+                                selectedType = if (index == 0) "Static" else "Video"
+                            }
                             .padding(horizontal = 12.dp),
                         contentAlignment = Alignment.Center
                     ) {
@@ -461,166 +474,84 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
 
             // Tab Content Rendering
             if (activeTab == 0) {
-                // TAB 0: GENERATIVE INTERACTIVE ART
+                val staticWallpapersList = remember {
+                    val pngIndices = setOf(1, 2, 3, 4, 9, 11, 13, 14, 15, 20, 25)
+                    (1..30).map { idx ->
+                        val ext = if (pngIndices.contains(idx)) "png" else "jpg"
+                        StaticWallpaper(
+                            id = "wallpaper_$idx",
+                            name = "Wallpaper $idx",
+                            url = "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/wallpaper/wallpaper_$idx.$ext"
+                        )
+                    }
+                }
+
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        text = "Choose Canvas Design",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color.White
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-                    
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        val styles = listOf("Plexus", "Matrix", "Aura Flow")
-                        styles.forEach { style ->
-                            val isStyleSelected = selectedType == style
-                            val borderCol by animateColorAsState(if (isStyleSelected) Color(0xFF00E5FF) else Color(0xFF1E1E30))
-                            val bgCol by animateColorAsState(if (isStyleSelected) Color(0xFF0F1E2E) else Color(0xFF0F0F1A))
-
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(68.dp)
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(bgCol)
-                                    .border(1.dp, borderCol, RoundedCornerShape(12.dp))
-                                    .clickable {
-                                        selectedType = style
-                                        lastGenerativeType = style
-                                    }
-                                    .padding(8.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Text(
-                                        text = style,
-                                        fontSize = 13.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = if (isStyleSelected) Color.White else Color.Gray
-                                    )
-                                    Spacer(modifier = Modifier.height(2.dp))
-                                    val desc = when (style) {
-                                        "Plexus" -> "Stars"
-                                        "Matrix" -> "Code"
-                                        else -> "Waves"
-                                    }
-                                    Text(
-                                        text = desc,
-                                        fontSize = 9.sp,
-                                        color = Color.Gray
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Text(
-                        text = "Engine Adjustments",
+                        text = "Choose Static Wallpaper",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.White
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = CardDefaults.cardColors(containerColor = Color(0xFF0F0F1A)),
-                        shape = RoundedCornerShape(16.dp),
-                        border = BorderStroke(1.dp, Color(0xFF1E1E30))
-                    ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            // Color Palette
-                            Text(text = "Color Palette", fontSize = 12.sp, color = Color.Gray)
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                val palettes = listOf("Ocean Breeze", "Cosmic Neon", "Forest Fire")
-                                palettes.forEach { palette ->
-                                    val isPaletteSelected = selectedTheme == palette
-                                    val colorCircle = when (palette) {
-                                        "Ocean Breeze" -> Color(0xFF00E5FF)
-                                        "Cosmic Neon" -> Color(0xFFE040FB)
-                                        else -> Color(0xFFFF6D00)
-                                    }
-                                    val ringColor by animateColorAsState(if (isPaletteSelected) Color.White else Color.Transparent)
+                    staticWallpapersList.chunked(2).forEach { rowItems ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            rowItems.forEach { wp ->
+                                val isSelected = selectedType == "Static" && videoUriStr == wp.url
+                                val cardBorderColor by animateColorAsState(if (isSelected) Color(0xFF00E5FF) else Color(0xFF1E1E30))
+                                val cardBgColor by animateColorAsState(if (isSelected) Color(0xFF0F1E2E) else Color(0xFF0F0F1A))
 
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier
-                                            .clip(RoundedCornerShape(8.dp))
-                                            .clickable { selectedTheme = palette }
-                                            .padding(4.dp)
-                                    ) {
+                                Card(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .padding(vertical = 6.dp)
+                                        .clickable {
+                                            selectedType = "Static"
+                                            videoUriStr = wp.url
+                                        },
+                                    colors = CardDefaults.cardColors(containerColor = cardBgColor),
+                                    shape = RoundedCornerShape(14.dp),
+                                    border = BorderStroke(1.dp, cardBorderColor)
+                                ) {
+                                    Column(modifier = Modifier.padding(10.dp)) {
                                         Box(
                                             modifier = Modifier
-                                                .size(20.dp)
-                                                .border(2.dp, ringColor, CircleShape)
-                                                .padding(2.dp)
-                                                .background(colorCircle, CircleShape)
-                                        )
-                                        Spacer(modifier = Modifier.width(4.dp))
+                                                .fillMaxWidth()
+                                                .aspectRatio(9f / 16f)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .background(Color(0xFF151525)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            AsyncImage(
+                                                model = wp.url,
+                                                contentDescription = null,
+                                                modifier = Modifier.fillMaxSize(),
+                                                contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(8.dp))
                                         Text(
-                                            text = palette,
-                                            fontSize = 11.sp,
-                                            color = if (isPaletteSelected) Color.White else Color.Gray,
-                                            fontWeight = if (isPaletteSelected) FontWeight.Bold else FontWeight.Normal
+                                            text = wp.name,
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.White,
+                                            maxLines = 1
+                                        )
+                                        Text(
+                                            text = "Static background",
+                                            fontSize = 9.sp,
+                                            color = Color.Gray,
+                                            maxLines = 1
                                         )
                                     }
                                 }
                             }
-
-                            Spacer(modifier = Modifier.height(16.dp))
-
-                            // Speed Multiplier
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(text = "Simulation Speed", fontSize = 12.sp, color = Color.Gray)
-                                Text(text = String.format("%.2fx", animSpeed), fontSize = 11.sp, color = Color.White)
-                            }
-                            Slider(
-                                value = animSpeed,
-                                onValueChange = { animSpeed = it },
-                                valueRange = 0.25f..2.0f,
-                                colors = SliderDefaults.colors(
-                                    thumbColor = Color(0xFF00E5FF),
-                                    activeTrackColor = Color(0xFF00E5FF),
-                                    inactiveTrackColor = Color(0xFF1E1E30)
-                                )
-                            )
-
-                            Spacer(modifier = Modifier.height(8.dp))
-
-                            // Touch Switch
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Column {
-                                    Text(text = "Touch Reaction", fontSize = 12.sp, color = Color.Gray)
-                                    Text(text = "Wallpaper responds to tap events", fontSize = 9.sp, color = Color.Gray)
-                                }
-                                Switch(
-                                    checked = touchEnabled,
-                                    onCheckedChange = { touchEnabled = it },
-                                    colors = SwitchDefaults.colors(
-                                        checkedThumbColor = Color(0xFF00E5FF),
-                                        checkedTrackColor = Color(0xFF0F2E3E),
-                                        uncheckedThumbColor = Color.Gray,
-                                        uncheckedTrackColor = Color(0xFF1E1E30)
-                                    )
-                                )
+                            if (rowItems.size == 1) {
+                                Spacer(modifier = Modifier.weight(1f))
                             }
                         }
                     }
@@ -944,13 +875,48 @@ fun WallpaperDashboard(modifier: Modifier = Modifier) {
                 Button(
                     onClick = {
                         if (!isDownloadingActive) {
-                            val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
-                                putExtra(
-                                    WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                                    ComponentName(context, ZyvixaWallpaperService::class.java)
-                                )
+                            if (selectedType == "Static") {
+                                scope.launch {
+                                    try {
+                                        withContext(Dispatchers.Main) {
+                                            android.widget.Toast.makeText(context, "Setting wallpaper...", android.widget.Toast.LENGTH_SHORT).show()
+                                        }
+                                        
+                                        val imageLoader = coil.ImageLoader(context)
+                                        val request = coil.request.ImageRequest.Builder(context)
+                                            .data(videoUriStr)
+                                            .allowHardware(false)
+                                            .build()
+                                        val result = (imageLoader.execute(request) as? coil.request.SuccessResult)?.drawable
+                                        val bitmap = (result as? android.graphics.drawable.BitmapDrawable)?.bitmap
+                                        
+                                        if (bitmap != null) {
+                                            val wm = WallpaperManager.getInstance(context)
+                                            wm.setBitmap(bitmap)
+                                            withContext(Dispatchers.Main) {
+                                                android.widget.Toast.makeText(context, "Wallpaper set successfully!", android.widget.Toast.LENGTH_SHORT).show()
+                                            }
+                                        } else {
+                                            withContext(Dispatchers.Main) {
+                                                android.widget.Toast.makeText(context, "Failed to load image", android.widget.Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                        withContext(Dispatchers.Main) {
+                                            android.widget.Toast.makeText(context, "Error: ${e.message}", android.widget.Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+                                }
+                            } else {
+                                val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
+                                    putExtra(
+                                        WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+                                        ComponentName(context, ZyvixaWallpaperService::class.java)
+                                    )
+                                }
+                                context.startActivity(intent)
                             }
-                            context.startActivity(intent)
                         }
                     },
                     enabled = !isDownloadingActive,
@@ -999,84 +965,6 @@ fun LiveSimulatedPreview(
     videoUriStr: String?,
     videoLoop: Boolean
 ) {
-    var previewTime by remember { mutableStateOf(0f) }
-    val localParticles = remember { mutableStateListOf<LocalParticle>() }
-    var localDrops = remember { floatArrayOf() }
-    var localDropSpeeds = remember { floatArrayOf() }
-    
-    var previewTouchX by remember { mutableStateOf(-1f) }
-    var previewTouchY by remember { mutableStateOf(-1f) }
-    var isTouchingPreview by remember { mutableStateOf(false) }
-    var matrixRippleRadius by remember { mutableStateOf(0f) }
-    var matrixRippleActive by remember { mutableStateOf(false) }
-
-    // Periodic simulation ticker
-    LaunchedEffect(type, speed) {
-        if (type == "Plexus" && localParticles.isEmpty()) {
-            val random = Random(System.currentTimeMillis())
-            for (i in 0 until 24) {
-                localParticles.add(
-                    LocalParticle(
-                        x = random.nextFloat() * 1000f,
-                        y = random.nextFloat() * 600f,
-                        vx = (random.nextFloat() - 0.5f) * 4f,
-                        vy = (random.nextFloat() - 0.5f) * 4f,
-                        radius = random.nextFloat() * 3f + 4f
-                    )
-                )
-            }
-        }
-        
-        while (true) {
-            previewTime += 0.02f * speed
-            
-            if (type == "Plexus") {
-                for (p in localParticles) {
-                    p.x += p.vx * speed
-                    p.y += p.vy * speed
-
-                    if (touchEnabled && isTouchingPreview && previewTouchX >= 0 && previewTouchY >= 0) {
-                        val dx = previewTouchX - p.x
-                        val dy = previewTouchY - p.y
-                        val dist = sqrt((dx * dx + dy * dy).toDouble()).toFloat()
-                        if (dist < 280f) {
-                            val f = (280f - dist) / 280f * 0.12f
-                            p.x += dx * f
-                            p.y += dy * f
-                        }
-                    }
-
-                    if (p.x < -20f) p.x = 1020f
-                    else if (p.x > 1020f) p.x = -20f
-                    if (p.y < -20f) p.y = 620f
-                    else if (p.y > 620f) p.y = -20f
-                }
-            } else if (type == "Matrix") {
-                if (localDrops.isEmpty()) {
-                    val count = 25
-                    localDrops = FloatArray(count) { Random.nextFloat() * -500f }
-                    localDropSpeeds = FloatArray(count) { Random.nextFloat() * 10f + 10f }
-                }
-                
-                for (i in localDrops.indices) {
-                    localDrops[i] += localDropSpeeds[i] * speed
-                    if (localDrops[i] > 650f) {
-                        localDrops[i] = -50f
-                        localDropSpeeds[i] = Random.nextFloat() * 10f + 10f
-                    }
-                }
-
-                if (matrixRippleActive) {
-                    matrixRippleRadius += 18f * speed
-                    if (matrixRippleRadius > 800f) {
-                        matrixRippleActive = false
-                    }
-                }
-            }
-            delay(16)
-        }
-    }
-
     if (type == "Video") {
         val context = LocalContext.current
         val parsedUri = remember(videoUriStr) {
@@ -1145,164 +1033,19 @@ fun LiveSimulatedPreview(
                 }
             )
         }
+    } else if (type == "Static" || type == "Image") {
+        AsyncImage(
+            model = videoUriStr,
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = androidx.compose.ui.layout.ContentScale.Crop
+        )
     } else {
-        // Original Canvas Preview Rendering
-        val colors = when (theme) {
-            "Cosmic Neon" -> listOf(Color(0xFFE040FB), Color(0xFF8A2BE2), Color(0xFF4A148C), Color(0xFF0F0022))
-            "Ocean Breeze" -> listOf(Color(0xFF00E5FF), Color(0xFF00B0FF), Color(0xFF0D47A1), Color(0xFF02091A))
-            else -> listOf(Color(0xFFFF6D00), Color(0xFFD50000), Color(0xFFE65100), Color(0xFF140202))
-        }
-
-        Canvas(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(colors[3])
-                .pointerInteropFilter { event ->
-                    if (!touchEnabled) return@pointerInteropFilter false
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
-                            previewTouchX = event.x
-                            previewTouchY = event.y
-                            isTouchingPreview = true
-                            
-                            if (type == "Matrix" && event.action == MotionEvent.ACTION_DOWN) {
-                                matrixRippleActive = true
-                                matrixRippleRadius = 0f
-                            }
-                        }
-                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                            isTouchingPreview = false
-                        }
-                    }
-                    true
-                }
-        ) {
-            val width = size.width
-            val height = size.height
-
-            if (type == "Plexus") {
-                val count = localParticles.size
-                for (i in 0 until count) {
-                    val p1 = localParticles[i]
-                    val p1X = (p1.x / 1000f) * width
-                    val p1Y = (p1.y / 600f) * height
-
-                    for (j in i + 1 until count) {
-                        val p2 = localParticles[j]
-                        val p2X = (p2.x / 1000f) * width
-                        val p2Y = (p2.y / 600f) * height
-
-                        val dx = p1X - p2X
-                        val dy = p1Y - p2Y
-                        val dist = sqrt((dx * dx + dy * dy).toDouble()).toFloat()
-                        val maxDist = 140f
-
-                        if (dist < maxDist) {
-                            val lineAlpha = (1f - (dist / maxDist)) * 0.5f
-                            drawLine(
-                                color = colors[1].copy(alpha = lineAlpha),
-                                start = Offset(p1X, p1Y),
-                                end = Offset(p2X, p2Y),
-                                strokeWidth = 1f
-                            )
-                        }
-                    }
-                }
-
-                localParticles.forEach { p ->
-                    val pX = (p.x / 1000f) * width
-                    val pY = (p.y / 600f) * height
-                    
-                    drawCircle(
-                        color = colors[0].copy(alpha = 0.2f),
-                        radius = p.radius * 2.2f,
-                        center = Offset(pX, pY)
-                    )
-                    
-                    drawCircle(
-                        color = colors[0],
-                        radius = p.radius,
-                        center = Offset(pX, pY)
-                    )
-                }
-            } 
-            else if (type == "Matrix") {
-                if (localDrops.isNotEmpty()) {
-                    val colWidth = width / localDrops.size
-                    
-                    for (i in localDrops.indices) {
-                        val x = i * colWidth + colWidth / 2
-                        val y = (localDrops[i] / 600f) * height
-                        
-                        val trailCount = 8
-                        for (j in 0 until trailCount) {
-                            val charY = y - j * 24f
-                            if (charY < 0 || charY > height) continue
-                            
-                            var charColor = colors[0]
-                            if (matrixRippleActive && touchEnabled) {
-                                val dx = x - previewTouchX
-                                val dy = charY - previewTouchY
-                                val dist = sqrt((dx * dx + dy * dy).toDouble()).toFloat()
-                                if (Math.abs(dist - matrixRippleRadius) < 30f) {
-                                    charColor = Color.White
-                                }
-                            }
-                            
-                            val alpha = (1f - (j.toFloat() / trailCount.toFloat())).coerceIn(0f, 1f)
-                            
-                            drawRect(
-                                color = if (j == 0) Color.White else charColor.copy(alpha = alpha),
-                                topLeft = Offset(x - 4f, charY - 4f),
-                                size = androidx.compose.ui.geometry.Size(8f, 8f)
-                            )
-                        }
-                    }
-                }
-            } 
-            else if (type == "Aura Flow") {
-                val touchOffsetX = if (touchEnabled && isTouchingPreview) (previewTouchX - width/2) * 0.35f else 0f
-                val touchOffsetY = if (touchEnabled && isTouchingPreview) (previewTouchY - height/2) * 0.35f else 0f
-
-                val center1X = width / 2 + cos(previewTime) * (width / 3.2f) + touchOffsetX
-                val center1Y = height / 2 + sin(previewTime) * (height / 4f) + touchOffsetY
-                
-                val center2X = width / 2 + sin(previewTime * 0.7f) * (width / 4f) - touchOffsetX
-                val center2Y = height / 2 + cos(previewTime * 0.9f) * (height / 3.2f) - touchOffsetY
-
-                drawCircle(
-                    brush = Brush.radialGradient(
-                        colors = listOf(colors[0], Color.Transparent),
-                        center = Offset(center1X, center1Y),
-                        radius = width * 0.85f
-                    ),
-                    radius = width * 0.85f,
-                    center = Offset(center1X, center1Y)
-                )
-
-                drawCircle(
-                    brush = Brush.radialGradient(
-                        colors = listOf(colors[1], Color.Transparent),
-                        center = Offset(center2X, center2Y),
-                        radius = width * 0.75f
-                    ),
-                    radius = width * 0.75f,
-                    center = Offset(center2X, center2Y)
-                )
-
-                val highlightX = width / 2 + cos(previewTime * 1.3f) * (width / 5f)
-                val highlightY = height / 2 + sin(previewTime * 0.8f) * (height / 5f)
-                drawCircle(
-                    brush = Brush.radialGradient(
-                        colors = listOf(colors[2], Color.Transparent),
-                        center = Offset(highlightX, highlightY),
-                        radius = width * 0.45f
-                    ),
-                    radius = width * 0.45f,
-                    center = Offset(highlightX, highlightY)
-                )
-            }
-        }
+                .background(Color(0xFF0F0F1A))
+        )
     }
 }
 
