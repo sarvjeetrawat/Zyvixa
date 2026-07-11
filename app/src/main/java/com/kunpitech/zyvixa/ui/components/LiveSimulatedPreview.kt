@@ -7,14 +7,18 @@ import android.view.Surface
 import android.graphics.SurfaceTexture
 import android.view.TextureView
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
+import coil.compose.AsyncImagePainter
 import com.kunpitech.zyvixa.R
 import java.io.File
 
@@ -94,12 +98,30 @@ fun LiveSimulatedPreview(
             )
         }
     } else if (type == "Static" || type == "Image") {
-        AsyncImage(
+        SubcomposeAsyncImage(
             model = videoUriStr,
             contentDescription = null,
             modifier = modifier.fillMaxSize(),
             contentScale = androidx.compose.ui.layout.ContentScale.Crop
-        )
+        ) {
+            val state = painter.state
+            if (state is AsyncImagePainter.State.Loading) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color(0xFF0F0F1A)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        color = Color(0xFF00E5FF).copy(alpha = 0.4f),
+                        strokeWidth = 2.5.dp,
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
+            } else {
+                SubcomposeAsyncImageContent()
+            }
+        }
     } else {
         Box(
             modifier = modifier

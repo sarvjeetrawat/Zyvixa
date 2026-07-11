@@ -23,7 +23,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
+import coil.compose.AsyncImagePainter
 import com.kunpitech.zyvixa.model.LiveWallpaper
 import com.kunpitech.zyvixa.model.StaticWallpaper
 import com.kunpitech.zyvixa.repository.WallpaperRepository
@@ -56,12 +58,30 @@ fun StaticWallpaperItem(
                     .background(Color(0xFF151525)),
                 contentAlignment = Alignment.Center
             ) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     model = wp.url,
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop
-                )
+                ) {
+                    val state = painter.state
+                    if (state is AsyncImagePainter.State.Loading) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color(0xFF151525)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = Color(0xFF00E5FF).copy(alpha = 0.4f),
+                                strokeWidth = 2.dp,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    } else {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -116,12 +136,30 @@ fun LiveWallpaperItem(
                     wp.imageUrl ?: "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/${wp.id}.png"
                 }
 
-                AsyncImage(
+                SubcomposeAsyncImage(
                     model = "$coverUrl?t=${System.currentTimeMillis()}",
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop
-                )
+                ) {
+                    val state = painter.state
+                    if (state is AsyncImagePainter.State.Loading) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color(0xFF151525)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = Color(0xFF00E5FF).copy(alpha = 0.4f),
+                                strokeWidth = 2.dp,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    } else {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
 
                 // Inline Looping Video Player for Selected items (only if cached)
                 val isCached = remember(wp.id, isDownloadingActive) {
