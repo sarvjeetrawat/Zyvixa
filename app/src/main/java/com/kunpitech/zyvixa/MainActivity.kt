@@ -16,10 +16,13 @@ import com.kunpitech.zyvixa.ui.screens.SplashScreen
 import com.kunpitech.zyvixa.ui.theme.ZyvixaTheme
 import com.kunpitech.zyvixa.viewmodel.WallpaperViewModel
 
+import com.kunpitech.zyvixa.ads.AdMobManager
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        AdMobManager.initialize(this)
         setContent {
             ZyvixaTheme {
                 val context = this

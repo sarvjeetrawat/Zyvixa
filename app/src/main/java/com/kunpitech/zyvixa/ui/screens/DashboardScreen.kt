@@ -1,5 +1,6 @@
 package com.kunpitech.zyvixa.ui.screens
 
+import android.app.Activity
 import android.app.WallpaperManager
 import android.content.ComponentName
 import android.content.Intent
@@ -28,6 +29,7 @@ import com.kunpitech.zyvixa.ZyvixaWallpaperService
 import com.kunpitech.zyvixa.ui.components.*
 import com.kunpitech.zyvixa.viewmodel.WallpaperViewModel
 import com.kunpitech.zyvixa.repository.WallpaperRepository
+import com.kunpitech.zyvixa.ads.AdMobManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,6 +41,7 @@ fun DashboardScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    var showAdDialog by remember { mutableStateOf(false) }
 
     // State collection from ViewModel
     val selectedType by viewModel.selectedType.collectAsState()
@@ -77,6 +80,51 @@ fun DashboardScreen(
             name.replace("wallpaper_", "Wallpaper ").replaceFirstChar { it.uppercase() }
         } else {
             selectedType
+        }
+    }
+
+    val applyWallpaperAction = {
+        if (selectedType == "Static") {
+            scope.launch {
+                try {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, "Setting wallpaper...", Toast.LENGTH_SHORT).show()
+                    }
+                    
+                    val imageLoader = coil.ImageLoader(context)
+                    val request = coil.request.ImageRequest.Builder(context)
+                        .data(videoUriStr)
+                        .allowHardware(false)
+                        .build()
+                    val result = (imageLoader.execute(request) as? coil.request.SuccessResult)?.drawable
+                    val bitmap = (result as? android.graphics.drawable.BitmapDrawable)?.bitmap
+                    
+                    if (bitmap != null) {
+                        val wm = WallpaperManager.getInstance(context)
+                        wm.setBitmap(bitmap)
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(context, "Wallpaper set successfully!", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        } else {
+            val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
+                putExtra(
+                    WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+                    ComponentName(context, ZyvixaWallpaperService::class.java)
+                )
+            }
+            context.startActivity(intent)
         }
     }
 
@@ -329,51 +377,11 @@ fun DashboardScreen(
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 val isDownloadingActive = activeDownloadId != null
+
                 Button(
                     onClick = {
                         if (!isDownloadingActive) {
-                            if (selectedType == "Static") {
-                                scope.launch {
-                                    try {
-                                        withContext(Dispatchers.Main) {
-                                            Toast.makeText(context, "Setting wallpaper...", Toast.LENGTH_SHORT).show()
-                                        }
-                                        
-                                        val imageLoader = coil.ImageLoader(context)
-                                        val request = coil.request.ImageRequest.Builder(context)
-                                            .data(videoUriStr)
-                                            .allowHardware(false)
-                                            .build()
-                                        val result = (imageLoader.execute(request) as? coil.request.SuccessResult)?.drawable
-                                        val bitmap = (result as? android.graphics.drawable.BitmapDrawable)?.bitmap
-                                        
-                                        if (bitmap != null) {
-                                            val wm = WallpaperManager.getInstance(context)
-                                            wm.setBitmap(bitmap)
-                                            withContext(Dispatchers.Main) {
-                                                Toast.makeText(context, "Wallpaper set successfully!", Toast.LENGTH_SHORT).show()
-                                            }
-                                        } else {
-                                            withContext(Dispatchers.Main) {
-                                                Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show()
-                                            }
-                                        }
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
-                                        withContext(Dispatchers.Main) {
-                                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                                        }
-                                    }
-                                }
-                            } else {
-                                val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
-                                    putExtra(
-                                        WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                                        ComponentName(context, ZyvixaWallpaperService::class.java)
-                                    )
-                                }
-                                context.startActivity(intent)
-                            }
+                            showAdDialog = true
                         }
                     },
                     enabled = !isDownloadingActive,
@@ -405,6 +413,58 @@ fun DashboardScreen(
                     }
                 }
             }
+        }
+
+        if (showAdDialog) {
+            AlertDialog(
+                onDismissRequest = { showAdDialog = false },
+                title = {
+                    Text(
+                        text = "Unlock Wallpaper",
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                },
+                text = {
+                    Text(
+                        text = "Watch a quick video ad to unlock and set this premium wallpaper.",
+                        color = Color.LightGray
+                    )
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            showAdDialog = false
+                            val activity = context as? Activity
+                            if (activity != null) {
+                                Toast.makeText(context, "Loading Ad...", Toast.LENGTH_SHORT).show()
+                                AdMobManager.showRewardedAd(activity) { rewardEarned ->
+                                    if (rewardEarned) {
+                                        applyWallpaperAction()
+                                    } else {
+                                        Toast.makeText(context, "Ad incomplete. Unlock failed.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            } else {
+                                applyWallpaperAction()
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00E5FF))
+                    ) {
+                        Text("Watch Ad", color = Color.Black, fontWeight = FontWeight.Bold)
+                    }
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = { showAdDialog = false }
+                    ) {
+                        Text("Cancel", color = Color.Gray)
+                    }
+                },
+                containerColor = Color(0xFF15102A),
+                titleContentColor = Color.White,
+                textContentColor = Color.LightGray
+            )
         }
     }
 }
