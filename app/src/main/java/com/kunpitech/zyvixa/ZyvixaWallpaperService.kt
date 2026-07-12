@@ -183,6 +183,7 @@ class ZyvixaWallpaperService : WallpaperService() {
                     
                     setSurface(surfaceHolder.surface)
                     isLooping = videoLoop
+                    setVolume(0f, 0f)
                     setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
                     
                     setOnPreparedListener { mp ->
@@ -209,6 +210,7 @@ class ZyvixaWallpaperService : WallpaperService() {
                         afd.close()
                         setSurface(surfaceHolder.surface)
                         isLooping = videoLoop
+                        setVolume(0f, 0f)
                         setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
                         setOnPreparedListener { mp ->
                             isPrepared = true
