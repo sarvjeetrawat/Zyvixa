@@ -22,7 +22,10 @@ class WallpaperViewModel(context: Context) : ViewModel() {
     val selectedTheme = MutableStateFlow(prefs.getString("wp_theme", "Ocean Breeze") ?: "Ocean Breeze")
     val animSpeed = MutableStateFlow(prefs.getFloat("wp_speed", 1.0f))
     val touchEnabled = MutableStateFlow(prefs.getBoolean("wp_touch", true))
-    val videoUriStr = MutableStateFlow(prefs.getString("wp_video_uri", "default_video") ?: "default_video")
+    val videoUriStr = MutableStateFlow(
+        prefs.getString("wp_video_uri", "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/wallpaper/wallpaper_2.png")
+            ?: "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/wallpaper/wallpaper_2.png"
+    )
     val videoLoop = MutableStateFlow(prefs.getBoolean("wp_video_loop", true))
 
     // Active tab and active categories
@@ -39,6 +42,11 @@ class WallpaperViewModel(context: Context) : ViewModel() {
     val staticWallpaperCatalog = mutableStateListOf<StaticWallpaper>()
 
     init {
+        // Correct first-launch default mismatch
+        if (selectedType.value == "Static" && (videoUriStr.value == "default_video" || videoUriStr.value.isEmpty())) {
+            videoUriStr.value = "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/wallpaper/wallpaper_2.png"
+        }
+
         // Save preference updates on change
         viewModelScope.launch {
             launch {
