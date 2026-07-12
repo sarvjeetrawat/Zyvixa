@@ -414,6 +414,7 @@ fun DashboardScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .statusBarsPadding()
+                            .navigationBarsPadding()
                             .padding(bottom = 60.dp)
                     ) {
                         // Title header and search action row
@@ -767,6 +768,7 @@ fun DashboardScreen(
         Card(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
+                .navigationBarsPadding()
                 .fillMaxWidth()
                 .height(60.dp),
             colors = CardDefaults.cardColors(containerColor = Color(0xF90B0B14)),
