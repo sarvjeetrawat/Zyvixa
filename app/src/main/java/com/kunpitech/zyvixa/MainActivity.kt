@@ -31,7 +31,10 @@ class MainActivity : ComponentActivity() {
 
                 Crossfade(targetState = showSplash, label = "splash_fade") { isSplash ->
                     if (isSplash) {
-                        SplashScreen(onFinished = { showSplash = false })
+                        SplashScreen(
+                            firstWallpaperUrl = viewModel.videoUriStr.collectAsState().value,
+                            onFinished = { showSplash = false }
+                        )
                     } else {
                         Scaffold(
                             modifier = Modifier.fillMaxSize(),
