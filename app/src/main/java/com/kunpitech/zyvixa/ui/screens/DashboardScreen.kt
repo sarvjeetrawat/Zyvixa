@@ -42,6 +42,8 @@ fun DashboardScreen(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var showAdDialog by remember { mutableStateOf(false) }
+    var adsWatchedCount by remember { mutableStateOf(0) }
+    var targetAdsCount by remember { mutableStateOf(1) }
 
     // State collection from ViewModel
     val selectedType by viewModel.selectedType.collectAsState()
@@ -381,6 +383,8 @@ fun DashboardScreen(
                 Button(
                     onClick = {
                         if (!isDownloadingActive) {
+                            targetAdsCount = if (selectedType == "Static") 1 else 2
+                            adsWatchedCount = 0
                             showAdDialog = true
                         }
                     },
@@ -416,18 +420,24 @@ fun DashboardScreen(
         }
 
         if (showAdDialog) {
+            val adNumberText = if (targetAdsCount == 2) " (Ad ${adsWatchedCount + 1} of 2)" else ""
             AlertDialog(
                 onDismissRequest = { showAdDialog = false },
                 title = {
                     Text(
-                        text = "Unlock Wallpaper",
+                        text = "Unlock Wallpaper$adNumberText",
                         fontWeight = FontWeight.Bold,
                         color = Color.White
                     )
                 },
                 text = {
+                    val desc = if (targetAdsCount == 2) {
+                        "Please watch 2 quick video ads to unlock and set this premium live wallpaper.$adNumberText"
+                    } else {
+                        "Watch a quick video ad to unlock and set this premium wallpaper."
+                    }
                     Text(
-                        text = "Watch a quick video ad to unlock and set this premium wallpaper.",
+                        text = desc,
                         color = Color.LightGray
                     )
                 },
@@ -440,7 +450,13 @@ fun DashboardScreen(
                                 Toast.makeText(context, "Loading Ad...", Toast.LENGTH_SHORT).show()
                                 AdMobManager.showRewardedAd(activity) { rewardEarned ->
                                     if (rewardEarned) {
-                                        applyWallpaperAction()
+                                        adsWatchedCount++
+                                        if (adsWatchedCount >= targetAdsCount) {
+                                            applyWallpaperAction()
+                                        } else {
+                                            // Trigger next ad sequence
+                                            showAdDialog = true
+                                        }
                                     } else {
                                         Toast.makeText(context, "Ad incomplete. Unlock failed.", Toast.LENGTH_SHORT).show()
                                     }
@@ -451,7 +467,8 @@ fun DashboardScreen(
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00E5FF))
                     ) {
-                        Text("Watch Ad", color = Color.Black, fontWeight = FontWeight.Bold)
+                        val btnText = if (targetAdsCount == 2) "Watch Ad ${adsWatchedCount + 1}/2" else "Watch Ad"
+                        Text(btnText, color = Color.Black, fontWeight = FontWeight.Bold)
                     }
                 },
                 dismissButton = {
