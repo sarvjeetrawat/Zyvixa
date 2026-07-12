@@ -196,7 +196,27 @@ fun DashboardScreen(
                             .clip(RoundedCornerShape(24.dp))
                             .background(tabBg)
                             .clickable {
-                                viewModel.activeTab.value = index
+                                if (activeTab != index) {
+                                    viewModel.activeTab.value = index
+                                    if (index == 0) {
+                                        val firstStatic = viewModel.staticWallpaperCatalog.firstOrNull()
+                                        if (firstStatic != null) {
+                                            viewModel.selectedType.value = "Static"
+                                            viewModel.videoUriStr.value = firstStatic.url
+                                        }
+                                    } else {
+                                        val firstLive = viewModel.liveWallpaperCatalog.firstOrNull()
+                                        if (firstLive != null) {
+                                            viewModel.selectedType.value = "Video"
+                                            if (WallpaperRepository.isWallpaperCached(context, firstLive.id)) {
+                                                val file = WallpaperRepository.getCachedWallpaperFile(context, firstLive.id)
+                                                viewModel.videoUriStr.value = file.absolutePath
+                                            } else {
+                                                viewModel.videoUriStr.value = firstLive.source
+                                            }
+                                        }
+                                    }
+                                }
                             }
                             .padding(horizontal = 12.dp),
                         contentAlignment = Alignment.Center
