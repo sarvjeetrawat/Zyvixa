@@ -22,7 +22,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_2.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_2.png",
+        "category": "Nature"
     },
     {
         "id": "video_3",
@@ -34,7 +35,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_3.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_3.png",
+        "category": "Nature"
     },
     {
         "id": "video_4",
@@ -46,7 +48,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_4.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_4.png",
+        "category": "Nature"
     },
     {
         "id": "video_5",
@@ -58,7 +61,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/vidoe_5.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/vidoe_5.png",
+        "category": "Nature"
     },
     {
         "id": "video_6",
@@ -70,7 +74,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_6.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_6.png",
+        "category": "Nature"
     },
     {
         "id": "video_7",
@@ -82,7 +87,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_7.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_7.png",
+        "category": "Nature"
     },
     {
         "id": "video_8",
@@ -94,7 +100,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_8.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_8.png",
+        "category": "Nature"
     },
     {
         "id": "video_9",
@@ -106,7 +113,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_9.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_9.png",
+        "category": "Abstract"
     },
     {
         "id": "video_10",
@@ -118,7 +126,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_10.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_10.png",
+        "category": "Abstract"
     },
     {
         "id": "video_11",
@@ -130,7 +139,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_11.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_11.png",
+        "category": "Abstract"
     },
     {
         "id": "video_12",
@@ -142,7 +152,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_12.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_12.png",
+        "category": "Abstract"
     },
     {
         "id": "video_13",
@@ -154,7 +165,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_13.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_13.png",
+        "category": "Abstract"
     },
     {
         "id": "video_14",
@@ -166,7 +178,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_14.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_14.png",
+        "category": "Abstract"
     },
     {
         "id": "video_15",
@@ -178,7 +191,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_15.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_15.png",
+         "category": "Abstract"
     },
     {
         "id": "video_16",
@@ -190,7 +204,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_16.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_16.png",
+         "category": "Abstract"
     },
     {
         "id": "video_17",
@@ -202,7 +217,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_17.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_17.png",
+         "category": "Abstract"
     },
     {
         "id": "video_18",
@@ -214,7 +230,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_18.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_18.png",
+         "category": "Abstract"
     },
     {
         "id": "video_19",
@@ -226,7 +243,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_19.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_19.png",
+         "category": "Abstract"
     },
     {
         "id": "video_20",
@@ -238,7 +256,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_20.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_20.png",
+         "category": "Abstract"
     },
     {
         "id": "video_21",
@@ -250,7 +269,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_21.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_21.png",
+         "category": "Abstract"
     },
     {
         "id": "video_22",
@@ -262,7 +282,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_22.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_22.png",
+         "category": "Abstract"
     },
     {
         "id": "video_23",
@@ -274,7 +295,8 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_23.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_23.png",
+         "category": "Abstract"
     },
     {
         "id": "video_24",
@@ -286,6 +308,7 @@
             "#9C27B0",
             "#00E5FF"
         ],
-        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_24.png"
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_24.png",
+         "category": "Abstract"
     }
 ]
