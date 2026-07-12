@@ -420,7 +420,7 @@ fun DashboardScreen(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 24.dp, vertical = 16.dp),
+                                .padding(start = 24.dp, end = 24.dp, top = 10.dp, bottom = 10.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -431,7 +431,7 @@ fun DashboardScreen(
                                     placeholder = { Text("Search wallpapers...", color = Color.Gray, fontSize = 14.sp) },
                                     modifier = Modifier
                                         .weight(1f)
-                                        .height(48.dp),
+                                        .height(52.dp),
                                     colors = OutlinedTextFieldDefaults.colors(
                                         focusedBorderColor = Color(0xFFE2B266),
                                         unfocusedBorderColor = Color(0xFF1E1E30),

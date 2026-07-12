@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                         ) { innerPadding ->
                             DashboardScreen(
                                 viewModel = viewModel,
-                                modifier = Modifier.padding(innerPadding)
+                                modifier = Modifier.fillMaxSize()
                             )
                         }
                     }
