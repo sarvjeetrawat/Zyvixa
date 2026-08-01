@@ -192,7 +192,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_15.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_16",
@@ -205,7 +205,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_16.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_17",
@@ -218,7 +218,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_17.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_18",
@@ -231,7 +231,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_18.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_19",
@@ -244,7 +244,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_19.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_20",
@@ -257,7 +257,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_20.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_21",
@@ -270,7 +270,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_21.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_22",
@@ -283,7 +283,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_22.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_23",
@@ -296,7 +296,7 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_23.png",
-         "category": "Abstract"
+        "category": "Abstract"
     },
     {
         "id": "video_24",
@@ -309,6 +309,110 @@
             "#00E5FF"
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_24.png",
-         "category": "Abstract"
+        "category": "Abstract"
+    },
+    {
+        "id": "video_25",
+        "title": "Live Wallpaper 25",
+        "description": "Dynamic loop 25",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_25.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_25.png",
+        "category": "Car"
+    },
+    {
+        "id": "video_26",
+        "title": "Live Wallpaper 26",
+        "description": "Dynamic loop 26",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_26.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_26.png",
+        "category": "Car"
+    },
+    {
+        "id": "video_27",
+        "title": "Live Wallpaper 27",
+        "description": "Dynamic loop 27",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_27.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_27.png",
+        "category": "Car"
+    },
+    {
+        "id": "video_28",
+        "title": "Live Wallpaper 28",
+        "description": "Dynamic loop 28",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_28.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_28.png",
+        "category": "Car"
+    },
+    {
+        "id": "video_29",
+        "title": "Live Wallpaper 29",
+        "description": "Dynamic loop 29",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_29.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_29.png",
+        "category": "Car"
+    },
+    {
+        "id": "video_30",
+        "title": "Live Wallpaper 30",
+        "description": "Dynamic loop 30",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_30.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_30.png",
+        "category": "Car"
+    },
+    {
+        "id": "video_31",
+        "title": "Live Wallpaper 31",
+        "description": "Dynamic loop 31",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_31.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_31.png",
+        "category": "Car"
+    },
+    {
+        "id": "video_32",
+        "title": "Live Wallpaper 32",
+        "description": "Dynamic loop 32",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_32.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_32.png",
+        "category": "Car"
     }
 ]
