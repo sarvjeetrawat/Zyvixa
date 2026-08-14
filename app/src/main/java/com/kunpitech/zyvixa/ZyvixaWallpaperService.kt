@@ -31,6 +31,7 @@ class ZyvixaWallpaperService : WallpaperService() {
         private var mediaPlayer: MediaPlayer? = null
         private var isPrepared = false
         private var currentVideoLoop = true
+        private var currentSpeed = 1.0f
         private lateinit var prefs: SharedPreferences
 
         private val frameCallback = object : Choreographer.FrameCallback {
@@ -188,6 +189,11 @@ class ZyvixaWallpaperService : WallpaperService() {
                     
                     setOnPreparedListener { mp ->
                         isPrepared = true
+                        try {
+                            val params = android.media.PlaybackParams()
+                            params.speed = currentSpeed.coerceIn(0.5f, 3.0f)
+                            mp.playbackParams = params
+                        } catch (_: Exception) {}
                         if (isVisible) {
                             mp.start()
                         }
@@ -214,6 +220,11 @@ class ZyvixaWallpaperService : WallpaperService() {
                         setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
                         setOnPreparedListener { mp ->
                             isPrepared = true
+                            try {
+                                val params = android.media.PlaybackParams()
+                                params.speed = currentSpeed.coerceIn(0.5f, 3.0f)
+                                mp.playbackParams = params
+                            } catch (_: Exception) {}
                             if (isVisible) {
                                 mp.start()
                             }
@@ -258,10 +269,12 @@ class ZyvixaWallpaperService : WallpaperService() {
             val typeChanged = type != currentType
             val videoUriChanged = videoUri != currentVideoUri
             val videoLoopChanged = videoLoop != currentVideoLoop
+            val speedChanged = speed != currentSpeed
             
             currentType = type
             currentVideoUri = videoUri
             currentVideoLoop = videoLoop
+            currentSpeed = speed
 
             if (type == "Video") {
                 // Remove frame callback for custom canvas rendering
@@ -271,6 +284,12 @@ class ZyvixaWallpaperService : WallpaperService() {
                     initMediaPlayer()
                 } else if (videoLoopChanged) {
                     mediaPlayer?.isLooping = videoLoop
+                } else if (speedChanged && isPrepared) {
+                    try {
+                        val params = android.media.PlaybackParams()
+                        params.speed = speed.coerceIn(0.5f, 3.0f)
+                        mediaPlayer?.playbackParams = params
+                    } catch (_: Exception) {}
                 } else {
                     // Resume playback if visible
                     if (isVisible && isPrepared) {

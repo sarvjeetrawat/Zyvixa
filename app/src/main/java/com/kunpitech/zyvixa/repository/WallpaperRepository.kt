@@ -191,4 +191,16 @@ object WallpaperRepository {
     fun getCachedWallpaperFile(context: Context, id: String): File {
         return File(File(context.cacheDir, "wallpapers"), "$id.mp4")
     }
+
+    fun clearCache(context: Context): Long {
+        val cacheDir = File(context.cacheDir, "wallpapers")
+        var freed = 0L
+        if (cacheDir.exists()) {
+            cacheDir.listFiles()?.forEach { file ->
+                freed += file.length()
+                file.delete()
+            }
+        }
+        return freed
+    }
 }

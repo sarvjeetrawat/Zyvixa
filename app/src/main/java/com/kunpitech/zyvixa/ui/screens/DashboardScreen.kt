@@ -57,7 +57,8 @@ import java.time.format.DateTimeFormatter
 
 enum class AppScreen {
     Preview,
-    Browse
+    Browse,
+    Settings
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -560,7 +561,8 @@ fun DashboardScreen(
                                         .fillMaxSize()
                                         .padding(horizontal = 18.dp),
                                     horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                    verticalItemSpacing = 12.dp
+                                    verticalItemSpacing = 12.dp,
+                                    contentPadding = PaddingValues(bottom = 160.dp)
                                 ) {
                                     items(filteredList) { wp ->
                                         // Staggered heights aspect logic
@@ -761,6 +763,13 @@ fun DashboardScreen(
                         }
                     }
                 }
+                AppScreen.Settings -> {
+                    SettingsScreen(
+                        viewModel = viewModel,
+                        onNavigateBack = { activeAppScreen = AppScreen.Preview },
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
             }
         }
 
@@ -784,7 +793,7 @@ fun DashboardScreen(
                 Column(
                     modifier = Modifier
                         .clickable { activeAppScreen = AppScreen.Preview }
-                        .padding(horizontal = 24.dp),
+                        .padding(horizontal = 20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     val previewIconColor by animateColorAsState(if (activeAppScreen == AppScreen.Preview) Color(0xFFE2B266) else Color.Gray)
@@ -798,18 +807,13 @@ fun DashboardScreen(
                 }
 
                 // Divider line
-                Box(
-                    modifier = Modifier
-                        .width(1.dp)
-                        .height(24.dp)
-                        .background(Color(0xFF1E1E30))
-                )
+                Box(modifier = Modifier.width(1.dp).height(24.dp).background(Color(0xFF1E1E30)))
 
                 // Tab 2: Browse (Gallery)
                 Column(
                     modifier = Modifier
                         .clickable { activeAppScreen = AppScreen.Browse }
-                        .padding(horizontal = 24.dp),
+                        .padding(horizontal = 20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     val browseIconColor by animateColorAsState(if (activeAppScreen == AppScreen.Browse) Color(0xFFE2B266) else Color.Gray)
@@ -818,6 +822,26 @@ fun DashboardScreen(
                         fontSize = 10.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = browseIconColor,
+                        letterSpacing = 1.sp
+                    )
+                }
+
+                // Divider line
+                Box(modifier = Modifier.width(1.dp).height(24.dp).background(Color(0xFF1E1E30)))
+
+                // Tab 3: Settings
+                Column(
+                    modifier = Modifier
+                        .clickable { activeAppScreen = AppScreen.Settings }
+                        .padding(horizontal = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    val settingsIconColor by animateColorAsState(if (activeAppScreen == AppScreen.Settings) Color(0xFFE2B266) else Color.Gray)
+                    Text(
+                        text = "SETTINGS",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = settingsIconColor,
                         letterSpacing = 1.sp
                     )
                 }

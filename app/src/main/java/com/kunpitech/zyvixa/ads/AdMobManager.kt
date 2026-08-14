@@ -17,7 +17,8 @@ object AdMobManager {
     private var isLoading = false
 
     // AdMob Official Test Rewarded Ad Unit ID
-    private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917"
+    private const val AD_UNIT_ID = "" //""ca-app-pub-3940256099942544/5224354917" // Test ID
+ //   private const val AD_UNIT_ID = "ca-app-pub-1843908357541717/6625525192" // Original ID
 
     fun initialize(context: Context) {
         MobileAds.initialize(context) { status ->
