@@ -414,5 +414,96 @@
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_32.png",
         "category": "Car"
+    },
+    {
+        "id": "video_33",
+        "title": "Live Wallpaper 33",
+        "description": "Dynamic loop 33",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_33.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_33.png",
+        "category": "Animal"
+    },
+    {
+        "id": "video_34",
+        "title": "Live Wallpaper 34",
+        "description": "Dynamic loop 34",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_34.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_34.png",
+        "category": "Animal"
+    },
+    {
+        "id": "video_35",
+        "title": "Live Wallpaper 35",
+        "description": "Dynamic loop 35",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_35.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_35.png",
+        "category": "Animal"
+    },
+    {
+        "id": "video_36",
+        "title": "Live Wallpaper 36",
+        "description": "Dynamic loop 36",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_36.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_36.png",
+        "category": "Animal"
+    },
+    {
+        "id": "video_37",
+        "title": "Live Wallpaper 37",
+        "description": "Dynamic loop 37",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_37.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_37.png",
+        "category": "Animal"
+    },
+    {
+        "id": "video_38",
+        "title": "Live Wallpaper 38",
+        "description": "Dynamic loop 38",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_38.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_38.png",
+        "category": "Animal"
+    },
+    {
+        "id": "video_39",
+        "title": "Live Wallpaper 39",
+        "description": "Dynamic loop 39",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_39.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_39.png",
+        "category": "Animal"
     }
 ]

@@ -487,7 +487,7 @@ fun DashboardScreen(
                             if (activeTab == 0) {
                                 listOf("All", "Abstract", "Animal", "Anime", "Car", "Cartoon", "Minimalist", "Nature", "Sport", "Spiritual")
                             } else {
-                                listOf("All", "Car", "Nature", "Abstract")
+                                listOf("All", "Abstract", "Animal", "Car", "Nature")
                             }
                         }
                         
