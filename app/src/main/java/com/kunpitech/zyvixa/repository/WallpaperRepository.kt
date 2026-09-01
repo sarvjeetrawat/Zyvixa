@@ -62,7 +62,7 @@ object WallpaperRepository {
                 val cat = raw.category ?: when {
                     raw.id in listOf("default_video", "live_wallpaper_one", "wallpaper_3", "wallpaper_4", "video_2", "video_3", "video_4", "video_9", "video_10", "video_21") -> "Car"
                     raw.id in listOf("video_5", "video_7", "video_8", "video_12", "video_13", "video_19", "video_20", "video_24") -> "Nature"
-                    raw.id in listOf("video_33", "video_34", "video_35", "video_36", "video_37", "video_38", "video_39") -> "Animal"
+                    raw.id in (33..49).map { "video_$it" } -> "Animal"
                     else -> "Abstract"
                 }
 

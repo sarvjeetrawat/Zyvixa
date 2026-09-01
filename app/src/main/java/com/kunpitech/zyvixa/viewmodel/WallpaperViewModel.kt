@@ -82,8 +82,8 @@ class WallpaperViewModel(context: Context) : ViewModel() {
     }
 
     private fun loadStarters() {
-        // Live Wallpaper starters (1..39)
-        val liveStarters = (1..39).map { idx ->
+        // Live Wallpaper starters (1..49)
+        val liveStarters = (1..49).map { idx ->
             val cat = when (idx) {
                 in 1..8 -> "Nature"
                 in 9..24 -> "Abstract"
