@@ -535,12 +535,14 @@ fun DashboardScreen(
                         Spacer(modifier = Modifier.height(18.dp))
 
                         // True Masonry staggered grid list
-                        val filteredList = remember(activeTab, selectedCategory, searchQuery, viewModel.staticWallpaperCatalog.size, viewModel.liveWallpaperCatalog.size) {
+                        val staticList = viewModel.staticWallpaperCatalog
+                        val liveList = viewModel.liveWallpaperCatalog
+                        val filteredList = remember(activeTab, selectedCategory, searchQuery, staticList.size, liveList.size, staticList.toList(), liveList.toList()) {
                             if (activeTab == 0) {
-                                val base = if (selectedCategory == "All") viewModel.staticWallpaperCatalog else viewModel.staticWallpaperCatalog.filter { it.category == selectedCategory }
+                                val base = if (selectedCategory == "All") staticList.toList() else staticList.filter { it.category.equals(selectedCategory, ignoreCase = true) }
                                 if (searchQuery.isEmpty()) base else base.filter { it.name.contains(searchQuery, ignoreCase = true) }
                             } else {
-                                val base = if (selectedCategory == "All") viewModel.liveWallpaperCatalog else viewModel.liveWallpaperCatalog.filter { it.category == selectedCategory }
+                                val base = if (selectedCategory == "All") liveList.toList() else liveList.filter { it.category.equals(selectedCategory, ignoreCase = true) }
                                 if (searchQuery.isEmpty()) base else base.filter { it.title.contains(searchQuery, ignoreCase = true) }
                             }
                         }

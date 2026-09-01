@@ -18,9 +18,14 @@ object WallpaperRepository {
     suspend fun fetchRemoteCatalog(urlStr: String): List<LiveWallpaper>? = withContext(Dispatchers.IO) {
         try {
             val url = URL(urlStr)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.connectTimeout = 10000
-            connection.readTimeout = 10000
+            val connection = (url.openConnection() as HttpURLConnection).apply {
+                setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 10; Mobile) ZyvixaApp/1.1")
+                setRequestProperty("Accept", "application/json, text/plain, */*")
+                instanceFollowRedirects = true
+                connectTimeout = 15000
+                readTimeout = 15000
+                useCaches = false
+            }
             connection.connect()
 
             if (connection.responseCode != HttpURLConnection.HTTP_OK) {
@@ -81,9 +86,14 @@ object WallpaperRepository {
     suspend fun fetchStaticCatalog(urlStr: String): List<StaticWallpaper>? = withContext(Dispatchers.IO) {
         try {
             val url = URL(urlStr)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.connectTimeout = 10000
-            connection.readTimeout = 10000
+            val connection = (url.openConnection() as HttpURLConnection).apply {
+                setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 10; Mobile) ZyvixaApp/1.1")
+                setRequestProperty("Accept", "application/json, text/plain, */*")
+                instanceFollowRedirects = true
+                connectTimeout = 15000
+                readTimeout = 15000
+                useCaches = false
+            }
             connection.connect()
 
             if (connection.responseCode != HttpURLConnection.HTTP_OK) {

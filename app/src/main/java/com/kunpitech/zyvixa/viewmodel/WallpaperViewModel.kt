@@ -82,13 +82,34 @@ class WallpaperViewModel(context: Context) : ViewModel() {
     }
 
     private fun loadStarters() {
-        // Live Wallpaper starters
-        val liveStarters = listOf(
-            LiveWallpaper("default_video", "BMW Red Eye", "Red JDM headlight glow", "default_video", false, listOf(androidx.compose.ui.graphics.Color(0xFFE91E63), androidx.compose.ui.graphics.Color(0xFF3F51B5)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/default_video.png", "Car"),
-            LiveWallpaper("live_wallpaper_one", "M3 Midnight", "Night city drift highway", "live_wallpaper_one", false, listOf(androidx.compose.ui.graphics.Color(0xFF9C27B0), androidx.compose.ui.graphics.Color(0xFF2196F3)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/live_wallpaper_one.png", "Car"),
-            LiveWallpaper("wallpaper_3", "BMW Glow Eye", "Dark aesthetic red headlights", "wallpaper_3", false, listOf(androidx.compose.ui.graphics.Color(0xFF673AB7), androidx.compose.ui.graphics.Color(0xFF009688)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/wallpaper_3.png", "Car"),
-            LiveWallpaper("wallpaper_4", "Tokyo Drift", "Neon street sliding loop", "wallpaper_4", false, listOf(androidx.compose.ui.graphics.Color(0xFFE040FB), androidx.compose.ui.graphics.Color(0xFF00E5FF)), "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/wallpaper_4.png", "Car")
-        )
+        // Live Wallpaper starters (1..39)
+        val liveStarters = (1..39).map { idx ->
+            val cat = when (idx) {
+                in 1..8 -> "Nature"
+                in 9..24 -> "Abstract"
+                in 25..32 -> "Car"
+                else -> "Animal"
+            }
+            val videoUrl = "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_$idx.mp4"
+            val thumbUrl = if (idx == 5) {
+                "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/vidoe_5.png"
+            } else {
+                "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_$idx.png"
+            }
+            LiveWallpaper(
+                id = "video_$idx",
+                title = "Live Wallpaper $idx",
+                description = "Dynamic loop $idx",
+                source = videoUrl,
+                isRemote = true,
+                gradientColors = listOf(
+                    androidx.compose.ui.graphics.Color(0xFF9C27B0),
+                    androidx.compose.ui.graphics.Color(0xFF00E5FF)
+                ),
+                imageUrl = thumbUrl,
+                category = cat
+            )
+        }
         liveWallpaperCatalog.addAll(liveStarters)
 
         // Static Wallpaper starters (2..30)
