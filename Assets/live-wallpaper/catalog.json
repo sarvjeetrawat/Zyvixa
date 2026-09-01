@@ -635,5 +635,109 @@
         ],
         "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_49.png",
         "category": "Animal"
+    },
+    {
+        "id": "video_50",
+        "title": "Live Wallpaper 50",
+        "description": "Dynamic loop 50",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_50.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_50.png",
+        "category": "Abstract"
+    },
+    {
+        "id": "video_51",
+        "title": "Live Wallpaper 51",
+        "description": "Dynamic loop 51",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_51.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_51.png",
+        "category": "Abstract"
+    },
+    {
+        "id": "video_52",
+        "title": "Live Wallpaper 52",
+        "description": "Dynamic loop 52",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_52.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_52.png",
+        "category": "Abstract"
+    },
+    {
+        "id": "video_53",
+        "title": "Live Wallpaper 53",
+        "description": "Dynamic loop 53",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_53.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_53.png",
+        "category": "Abstract"
+    },
+    {
+        "id": "video_54",
+        "title": "Live Wallpaper 54",
+        "description": "Dynamic loop 54",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_54.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_54.png",
+        "category": "Abstract"
+    },
+    {
+        "id": "video_55",
+        "title": "Live Wallpaper 55",
+        "description": "Dynamic loop 55",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_55.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_55.png",
+        "category": "Abstract"
+    },
+    {
+        "id": "video_56",
+        "title": "Live Wallpaper 56",
+        "description": "Dynamic loop 56",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_56.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_56.png",
+        "category": "Abstract"
+    },
+    {
+        "id": "video_57",
+        "title": "Live Wallpaper 57",
+        "description": "Dynamic loop 57",
+        "videoUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_57.mp4",
+        "isRemote": true,
+        "gradientColors": [
+            "#9C27B0",
+            "#00E5FF"
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/video-thumbnail-images/video_57.png",
+        "category": "Abstract"
     }
 ]

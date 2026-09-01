@@ -82,13 +82,14 @@ class WallpaperViewModel(context: Context) : ViewModel() {
     }
 
     private fun loadStarters() {
-        // Live Wallpaper starters (1..49)
-        val liveStarters = (1..49).map { idx ->
+        // Live Wallpaper starters (1..57)
+        val liveStarters = (1..57).map { idx ->
             val cat = when (idx) {
                 in 1..8 -> "Nature"
                 in 9..24 -> "Abstract"
                 in 25..32 -> "Car"
-                else -> "Animal"
+                in 33..49 -> "Animal"
+                else -> "Abstract"
             }
             val videoUrl = "https://raw.githubusercontent.com/sarvjeetrawat/Zyvixa/main/Assets/live-wallpaper/video_$idx.mp4"
             val thumbUrl = if (idx == 5) {
